@@ -47,10 +47,50 @@ Combines real-time camera feeds with simulated sensor data to monitor room occup
 
 ## Tech Stack
 
-- Backend: Python 3.9, FastAPI, SQLAlchemy (async), SQLite (aiosqlite)
-- Frontend: React 18, TypeScript, Vite, TailwindCSS v4, Recharts, Lucide React
-- ML: YOLOv8 (ultralytics), OpenCV, Albumentations
-- Training: Google Colab (T4 GPU), Google Drive storage
+### Backend (Python 3.9, conda env: `computer-vision`)
+| Package | Version | Purpose |
+|---------|---------|---------|
+| FastAPI | 0.115.6 | Async web framework, REST + WebSocket APIs |
+| Uvicorn | 0.34.0 | ASGI server with WebSocket support |
+| SQLAlchemy | >=2.0 | Async ORM with declarative models |
+| aiosqlite | latest | Async SQLite driver |
+| Pydantic | >=2.0 | Data validation, settings, response schemas |
+| pydantic-settings | >=2.0 | Environment variable config management |
+| ultralytics | latest | YOLOv8 object detection model |
+| opencv-python | latest | Image/video processing for detection |
+| Pillow | latest | Image handling |
+| numpy | <2.0.0 | Numerical operations |
+| websockets | latest | WebSocket protocol for real-time streaming |
+| python-multipart | latest | File upload handling (image/video detection) |
+
+### Frontend (Node.js 22+, npm)
+| Package | Version | Purpose |
+|---------|---------|---------|
+| React | 19.2 | UI library |
+| React DOM | 19.2 | React DOM renderer |
+| React Router DOM | 7.15 | Client-side routing |
+| TypeScript | 6.0 | Type-safe JavaScript |
+| Vite | 8.0 | Build tool and dev server |
+| TailwindCSS | 4.3 | Utility-first CSS framework |
+| Recharts | 3.8 | Charting library for sensor data visualization |
+| Lucide React | 1.16 | Icon library |
+
+### ML / Computer Vision
+| Tool | Purpose |
+|------|---------|
+| YOLOv8 (Ultralytics) | Person detection model, trained on custom dataset |
+| OpenCV | Frame capture, image preprocessing |
+| Albumentations | Data augmentation (flip, brightness, noise) |
+| Google Colab (T4 GPU) | Training environment |
+
+### Database
+- **Development:** SQLite (via aiosqlite, async)
+- **Production (planned):** PostgreSQL + Redis via Docker Compose
+
+### Dev Tools
+- Conda (Python environment management)
+- ESLint + typescript-eslint (code linting)
+- Docker Compose (production setup)
 
 ## Project Structure
 
