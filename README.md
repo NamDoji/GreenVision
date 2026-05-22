@@ -161,7 +161,7 @@ conda activate computer-vision
 cd backend
 python ../scripts/seed_demo_data.py
 ```
-This creates `greenvision.db` with 4 demo rooms and 24 hours of sensor readings.
+This creates `greenvision.db` with 5 demo rooms and 24 hours of sensor readings.
 
 ### 4. Start backend
 ```bash
@@ -213,7 +213,7 @@ Each preprocess notebook downloads, converts to YOLO format (class 0 = person), 
 
 ## Demo Rooms
 
-The seed script creates 4 rooms with realistic occupancy patterns:
+The seed script creates 5 rooms with realistic occupancy patterns:
 
 | Room | Capacity | Pattern |
 |------|----------|---------|
@@ -221,6 +221,33 @@ The seed script creates 4 rooms with realistic occupancy patterns:
 | Classroom B | 30 | Busy 9-11, busy 13-15 |
 | Computer Lab | 25 | Busy 9-17 (high power from PCs), half-busy 17-20 |
 | Library Study Area | 50 | Moderate 8-22, minimal overnight |
+| Hallway | 20 | Transit traffic during class change hours |
+
+## Simulated Sensor Data & Power Estimation
+
+Each room generates 5 sensor readings every update cycle:
+
+| Sensor | Value Range | Calculation |
+|--------|------------|-------------|
+| **People** | 0 to capacity | `occupancy_rate x room_capacity` (e.g. 0.7 x 40 = 28 people) |
+| **Motion** | 0 or 1 | 1 if people > 0, 0 if empty |
+| **Temperature** | 18-28 C | Base 22C + occupancy_rate x 6C + random noise (1.5C) |
+| **Light** | 0-800 lux | 300-700 lux if occupied, near 0 if empty (except Classroom A 10-12 where lights stay on) |
+| **Power** | varies | See formula below |
+
+**Power estimation formula:**
+```
+power = power_base + occupancy_rate x capacity x (40 + random(30)) watts
+```
+
+Where `power_base` varies by room type:
+- Computer Lab: 2500W baseline (PCs, monitors always drawing standby power)
+- Hallway: 100W baseline (minimal equipment)
+- Classrooms/Library: 200W baseline (lighting + AC standby)
+
+The per-person contribution (~40-70W) accounts for additional lighting, laptop chargers, and AC load.
+
+**Energy waste detection:** A room is flagged as wasting energy when people = 0 AND power exceeds a threshold (500W for Computer Lab, 150W for other rooms). This simulates the real-world scenario where lights and AC are left on in an empty room.
 
 ## API Endpoints
 

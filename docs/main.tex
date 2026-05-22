@@ -13,6 +13,7 @@
 \usepackage{titlesec}
 \usepackage{hyperref}
 \usepackage{array}
+\usepackage{float}
 
 \geometry{top=2cm, bottom=2cm, left=2.5cm, right=2.5cm}
 
@@ -85,45 +86,59 @@ GreenVision AI là hệ thống giám sát năng lượng thông minh:
 
 \subsection{Cách yếu tố AI được lồng ghép}
 
+\noindent
+\begin{minipage}[t]{0.48\textwidth}
 \textbf{Lớp 1 -- Nhận diện người (Computer Vision):}
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}[leftmargin=1.2cm]
     \item Mô hình YOLOv8 (Ultralytics) -- kiến trúc deep learning phát hiện đối tượng
     \item Huấn luyện trên bộ dữ liệu 3 nguồn: Kaggle, HuggingFace, Roboflow
     \item Tổng $\sim$3.300 ảnh gốc, augment lên $\sim$10.000 ảnh
     \item Kết quả: mAP@0.5 $>$ 0.9, chạy trên CPU
 \end{itemize}
-
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
 \textbf{Lớp 2 -- Phát hiện bất thường năng lượng:}
-\begin{itemize}[leftmargin=1.5cm]
+\begin{itemize}[leftmargin=1.2cm]
     \item Phân tích dữ liệu cảm biến kết hợp nhận diện người
     \item Phòng trống + đèn bật + công suất cao $\rightarrow$ cảnh báo
+    \item Tích hợp camera + sensor để xác minh
+    \item Hiển thị cảnh báo realtime trên dashboard
 \end{itemize}
+\end{minipage}
+
+\vspace{0.4cm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{detection.png}
+\caption{AI phát hiện người -- YOLOv8 bounding box trên video stream}
+\end{figure}
 
 \section{Sản phẩm minh họa}
 
-\subsection{Video demo (2--3 phút)}
+\subsection{Mô hình}
 
-\begin{enumerate}[leftmargin=1.5cm]
-    \item Giới thiệu vấn đề (20s): Số liệu lãng phí điện năng tại trường học
-    \item Demo phát hiện người (40s): Camera $\rightarrow$ YOLO phát hiện $\rightarrow$ đếm người $\rightarrow$ bounding box
-    \item Demo dashboard (40s): 4 phòng, sensor realtime, biểu đồ 24h
-    \item Demo cảnh báo (30s): Phòng trống + đèn bật $\rightarrow$ ``Energy Waste Detected''
-    \item Kết quả (30s): Sơ đồ kiến trúc, số liệu tiết kiệm
-\end{enumerate}
+Hệ thống được triển khai dưới dạng web application, có thể truy cập trực tiếp tại:
 
-\subsection{Poster (A1)}
+\begin{center}
+\url{https://duongphamminhdung.github.io/GreenVision/}
+\end{center}
+
+\textbf{Các chức năng chính:}
+
 \begin{itemize}[leftmargin=1.5cm]
-    \item Sơ đồ: Camera $\rightarrow$ YOLO $\rightarrow$ Database $\rightarrow$ Dashboard $\rightarrow$ Cảnh báo
-    \item Screenshot dashboard, biểu đồ năng lượng trước/sau
-    \item Giảm 20--30\% điện năng lãng phí
+    \item Backend FastAPI + frontend React
+    \item 5 phòng demo, dữ liệu sensor cập nhật mỗi 3 giây
+    \item AI phát hiện người qua camera (YOLOv8)
+    \item Cảnh báo lãng phí năng lượng khi phòng trống + công suất cao
 \end{itemize}
 
-\subsection{Mô hình mô phỏng}
-\begin{itemize}[leftmargin=1.5cm]
-    \item Backend FastAPI + frontend React chạy trên localhost
-    \item 4 phòng demo, dữ liệu sensor mỗi 5 giây
-    \item Upload ảnh $\rightarrow$ AI phát hiện người lập tức
-\end{itemize}
+\vspace{0.3cm}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{dashboard.png}
+\caption{Dashboard giám sát năng lượng -- hiển thị 6 phòng với dữ liệu sensor realtime, chế độ sáng/tối}
+\end{figure}
 
 \section{Thông tin đội thi}
 

@@ -1,1 +1,58 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --bg-input: #f1f5f9;
+  --border: #e2e8f0;
+  --border-active: #10b981;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --text-value: #1e293b;
+  --text-inverse: #ffffff;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-active: 0 0 12px rgba(16,185,129,0.15);
+  --emerald-bg: rgba(16,185,129,0.08);
+  --red-bg: rgba(239,68,68,0.06);
+  --red-border: rgba(239,68,68,0.25);
+  --red-text: #dc2626;
+  --emerald-text: #059669;
+  --amber-text: #d97706;
+  --blue-text: #2563eb;
+  --gauge-track: #e2e8f0;
+}
+
+.dark {
+  --bg-primary: #0a0f1a;
+  --bg-secondary: #0d1321;
+  --bg-card: rgba(30,41,59,0.6);
+  --bg-card-hover: rgba(30,41,59,0.8);
+  --bg-input: rgba(30,41,59,0.4);
+  --border: rgba(51,65,85,0.5);
+  --border-active: rgba(16,185,129,0.4);
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --text-value: #e2e8f0;
+  --text-inverse: #0f172a;
+  --shadow: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-active: 0 0 12px rgba(16,185,129,0.1);
+  --emerald-bg: rgba(16,185,129,0.1);
+  --red-bg: rgba(239,68,68,0.05);
+  --red-border: rgba(239,68,68,0.5);
+  --red-text: #f87171;
+  --emerald-text: #34d399;
+  --amber-text: #fbbf24;
+  --blue-text: #60a5fa;
+  --gauge-track: #1e293b;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
